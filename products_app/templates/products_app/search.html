@@ -1,0 +1,84 @@
+{% extends 'layouts/base.html' %}
+{% load static %}
+{% block body_block %}
+<header class="my_body">
+    <div class="container">
+        {% if item %}
+        <div class="row align-items-center justify-content-center text-center col-12 my_title">
+            <h2 class="my_title">Recherche du produit : {{ item }}</h2>
+        </div>
+        {% endif %}
+        {% if search_return == "0" %}
+        {# Undefined error during the search #}
+        <div class="row align-items-center justify-content-center text-center col-12 my_title">
+            <h2>Erreur indéfinie lors de la recherche !</h2>
+            <div class="row align-items-center justify-content-center text-center col-12">
+                <a href="{% url 'home_app:index' %}" class="btn btn-secondary " name="no">Index</a>
+            </div>
+        </div>
+        {% elif search_return == "4" %}
+        {# Unauthenticated user is not authorized --> the 404 is not clear enough #}
+            <div class="row align-items-center justify-content-center text-center col-12 my_title">
+                <h2>Erreur ! Vous devez être authentifié pour effectuer une recherche ! </h2>
+                <h5>Cliquer sur "Continuer" pour aller directement sur la page de connexion</h5>
+                <h5>ou sur "Index" pour retourner à la page d'acceuil</h5>
+            </div>
+            <div class="row align-items-center justify-content-center text-center col-12">
+                <div class="col-6 ">
+                    <a href="{% url 'user_app:user' %}" class="btn btn-primary " name="yes">Continuer</a>
+                </div>
+                <div class="col-6">
+                    <a href="{% url 'home_app:index' %}" class="btn btn-secondary " name="no">Intex</a>
+                </div>
+            </div>
+        {% elif search_return == "1" %}
+        {# no product found #}
+            <div class="row align-items-center justify-content-center text-center col-12 my_title">
+                <p><h3>Erreur lors de la recherche ==> Aucun produit trouvé !</h3>
+                <h5>Voulez-vous que nous allions rechercher les données pour vous ?</h5>
+                <h5>Si vous cliquez sur oui, merci de recommencer votre recherche dans quelques minutes ?</h5></p>
+                <h5>Cliquer sur Index pour retourner à la page d'index ou sur Back pour retourner d'ou vous venez !</h5>
+            </div>
+            <div class="row align-items-center justify-content-center text-center col-12">
+                <div class="col-6 ">
+                    <form action="" method="POST">
+                        {% csrf_token %}
+                        <input type="submit" class="btn btn-primary btn_yes" name="yes" value="oui">
+                    </form>
+                </div>
+                <div class="col-6">
+                    <a href="{% url 'home_app:index' %}" class="btn btn-secondary btn_no" name="no">Index</a>
+                </div>
+            </div>
+        {% elif search_return == "2" %}
+        {# several products found ! Choose one ! #}
+        <div class="row align-items-center justify-content-center text-center col-12 my_title">
+            <h3>La recherche a renvoyée plusieurs produits !</h3>
+            <h5>Merci d'en selectionner un puis de valider afin que nous vous proposions
+                les meilleurs substituts.
+            </h5>
+        </div>
+        <section class="col-12">
+            <div class="row equal align-items-end">
+                {% for prod in prods %}
+                    <div class="col-md-4 col-12 ligne justify-content-center text-center  ">
+                        <form method="POST" action="{% url 'products_app:search' %}" class="inline">
+                            {% csrf_token %}
+                            <div>
+                                <input type="hidden" name="chkpname" value="{{prod.pname}}">
+                                <input type="hidden" name="chkcode" value="{{prod.code}}">
+                                <input type="image" class="img-thumbnail" src="{{ prod.photo_url }}" 
+                                    alt="image {{chk.pname}}"/>
+                            </div>
+                            <span>{{ prod.pname }} </span>
+                        </form>
+                    </div>
+                {% endfor %}
+            </div>
+            {% include 'layouts/partials/_paginator.html' with page_obj=prods %}
+        </section>
+        {% endif %}
+        {% include 'layouts/partials/_back.html' %}
+    </div>
+</header>
+{% endblock body_block %}

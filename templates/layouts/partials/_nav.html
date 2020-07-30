@@ -1,0 +1,42 @@
+{% comment %}
+    The navbar (responsive)
+        contains also a searchform
+        carrot and exit icons are displayed only if the user is connected
+{% endcomment %}
+{% load static %}
+{% block navbar %}
+
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top py-3" id="mainNav">
+        <div class="container">
+            <div id="logo" class="d-none d-sm-block">
+                <a href="{% url 'index' %}"><img src="{% static 'img/logo_pur_beurre2.png' %}" alt="Pur Beurre"></a>
+                <p class="text">Homepage</p>
+            </div>
+            <h2><a class="js-scroll-trigger" href="{% url 'index' %}">Pur Beurre</a></h2>
+            <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav ml-auto my-2 my-lg-0">
+                    <form class="form-inline my-2 my-lg-0" id="searchform_nav" method="POST" action="{% url 'products_app:search' %}">
+                        {% csrf_token %}
+                        <input class="form-control mr-sm-2" minlength="5" maxlength="50" name="search_menu" id="search_menu" type="search" placeholder="Search - min 5 chars" aria-label="search_menu">
+                    </form>
+                    {% if user.is_authenticated %}
+                    <div id="carrot">
+                        <li class="nav-item carrot"><a href="{% url 'products_app:list_bookmarks' %}"><i class="fas fa-carrot fa-2x"></i></a></li>
+                        <span class="text">Bookmarks</span>
+                    </div>
+                    <div id="logout">
+                        <li class="nav-item logout"><a href="{% url 'user_app:ulogout' %}"><i class="fas fa-sign-out-alt fa-2x"></i></a></li>
+                        <span class="text">Logout</span>
+                    </div>
+                    {% endif %}
+                    <div id="perso2">
+                    <li class="nav-item perso2"><a href="{% url 'user_app:user' %}"><img src="{%static 'img/perso2.png' %}" alt="mon compte"></a></li>
+                    <p class="text">Gestion utilisateur</p>
+                    </div>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+{% endblock navbar %}

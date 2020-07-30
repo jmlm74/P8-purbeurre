@@ -1,0 +1,154 @@
+/*
+    CSS STYLES FOR ALL THE PROJECT
+*/
+
+/* margin top for the titles */
+.my_title,.my_title2{
+    margin-top: 5%;
+}
+@media (max-device-width: 640px) {
+    .my_title2{
+        margin-top: 30%;
+    }
+    .my_title{
+        margin-top: 2%;
+    }
+
+}
+
+/* my_body position */
+#my_body{
+    margin-top: $navbar-height;
+}
+
+.perso2:hover,
+.logout:hover,
+.carrot:hover{
+    opacity: 0.5;
+}
+
+// form error
+.errorlist,.error{
+    color: red;
+}
+// help on input
+.help_text{
+color: grey
+}
+// input color on hover
+#search_menu:hover, #search_menu:focus,
+#items_to_search:hover, #items_to_search:focus{
+    background-color: $biscuit;
+}
+
+// logo position
+#logo {
+    margin-top: 30px;
+}
+
+// logo text : hiden and visible on hover
+#logo .text{
+    position: relative;
+    bottom: 30px;
+    left: 0px;
+    visibility: hidden;
+}
+#logo:hover .text{
+    visibility: visible;
+    font-weight: bold;
+    color: $rigolo;
+}
+// person - Login icon
+#perso2{
+    margin-top: 30px;
+    margin-left: 15px;
+}
+#perso2 .text{
+    position: relative;
+    bottom: 10px;
+    left: 0px;
+    visibility: hidden;
+}
+#perso2:hover .text{
+    visibility: visible;
+    font-weight: bold;
+    color: $rigolo;
+}
+
+// logout and carrot icon
+#logout .text,
+#carrot .text{
+    position: relative;
+    bottom: 10px;
+    left: 0px;
+    visibility: hidden;
+}
+#logout:hover .text,
+#carrot:hover .text{
+    visibility: visible;
+    font-weight: bold;
+    color: $rigolo;
+}
+
+.carrot,.logout{
+    margin-top: 40px;
+    margin-left: 15px;
+}
+
+// header position for all the site and responsive design
+header.my_body {
+    padding-top: 10rem;
+    padding-bottom: calc(10rem - #{$navbar-height});
+
+    h1 {
+        font-size: 2.25rem;
+        font-family: "open-sans", $font-family-sans-serif;
+    }
+    h2, h3, h4, h5, h6 {
+        font-family: "open-sans", $font-family-sans-serif;
+    }
+    @include media-breakpoint-up(lg) {
+        //height: 100vh;
+        min-height: 40rem;
+        padding-top: $navbar-height;
+        padding-bottom: 0;
+        p {
+            font-size: 1.15rem;
+        }
+        h1 {
+            font-size: 3rem;
+        }
+    }
+    @include media-breakpoint-up(xl) {
+        h1 {
+            font-size: 3.5rem;
+        }
+    }
+}
+
+header.my_error{
+    height: 75vh;
+    padding-top: $navbar-height + 5rem;
+}
+
+.newline {
+    margin-top: 1vh;
+}
+
+.ui-autocomplete {
+    max-height: 20%;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding-right: 1%;
+}
+.ui-state-focus  {
+    background: none !important;
+    background-color: #345a61 !important;
+    border: none !important;}
+
+.ui-autocomplete .ui-menu-item .ui-menu-item-wrapper.ui-state-active {
+    background: #345a61 !important;
+    font-weight: bold !important;
+    color: #ffffff !important;
+}
+

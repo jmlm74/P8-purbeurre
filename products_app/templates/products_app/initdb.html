@@ -1,0 +1,22 @@
+{% extends 'layouts/base.html' %}
+{% load static %}
+{% block body_block %}
+<header class="my_body">
+    <div class="container">
+        <div class="alert alert-danger" role="alert">
+            <p>Attention : Cette opération va effacer <strong>TOUTES</strong> les données de la base y compris
+            les bookmarks !!!! </p>
+            <p>Cette opération vous ramenera à la page d'index et durera environ 5 à 10mn !</p>
+        </div>
+        <h5>Pour continuer : Cliquer sur "Continuer" sinon sur "Index"</h5>
+        <form action="" method="post">
+            {% csrf_token %}
+            <input type="submit" value="Continuer" class="btn btn-danger">
+        </form>
+        <hr />
+        <div class="row justify-content-center">
+            <a href="{% url 'home_app:index' %}"><input type="button" class="btn btn-primary" value="Index" /></a>
+        </div>
+    </div>
+</header>
+{% endblock %}

@@ -1,0 +1,46 @@
+/* just a border to see the exact place of DOM objects
+.toto{
+    border: 1px solid white;
+}
+*/
+/* images columns (remy and colette) */
+.col1{
+    border: 1px solid black;
+}
+
+/* the search form */
+.searchform span {
+    margin-top: 50px;
+}
+
+/* to separate homepage parts */
+
+article{
+    margin-top: 20px;
+}
+
+/* the 2 images  have not the same size... */
+.img1{
+    margin-top: 50px;
+}
+
+/*
+#my_body{
+    margin-top: 70px;
+}
+*/
+
+/* the 2 images have not the same size...*/
+@media (max-width: 480px) {
+    .img1{
+        margin-top: 50px;
+    }
+}
+
+.navtitle {
+    color: black;
+}
+
+.masthead a{
+    color:#86ebe6;
+}

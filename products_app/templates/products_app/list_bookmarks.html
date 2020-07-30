@@ -1,0 +1,65 @@
+{% extends 'layouts/base.html' %}
+{% load static %}
+{% load define %}
+{% static "" as baseUrl %}
+{% block body_block%}
+<div id="my_body">
+    <div class="container">
+        <header class="row align-items-center justify-content-center text-center col-12 my_title2">
+            <h5>Liste de tous les bookmarks de {{user.get_username|upper}} - {{user.email}}</h5>
+        </header>
+    </div>
+    <div class="container">
+        {% if bookmarks %}
+        <div class="row"> 
+            <div class="col-12">   
+                <div class="row">
+                    <div class="col-6 text-center border border-dark">PRODUIT(S)</div>
+                    <div class="col-6 text-center border border-dark">SUBSTITUT(S)</div>
+                </div>     
+            </div>
+        </div>   
+        <div class="row">
+            <div class='col-12 border border-dark'>                
+                {% for bookmark in bookmarks %}
+                    <div class="row align-items-center  border-bottom border-dark">
+                        <div class="col-6 text-center mycol border-right border-dark">
+                            <form method="POST" action="{% url 'products_app:detail' %}" >
+                                {% csrf_token %}
+                                <input type="hidden" name="chkpname" value="{{bookmark.product.pname}}">
+                                <input type="hidden" name="chkcode" value="{{bookmark.product.code}}">
+                                <input type="image" class="img-thumbnail" src="{{ bookmark.product.photo_url }}" 
+                                alt="image {{bookmark.product.pname}}" /><br />
+                                {{ bookmark.product }}
+                            </form>
+                        </div>
+                        <div class="col-6 mycol border-left border-dark">
+                        {% for subst in bookmark.product.pbookmarks.all %}
+                            {% if subst.buser|upper == user.get_username|upper %}
+                                <div class="mycol text-center mb1">
+                                    <form method="POST" action="{% url 'products_app:detail' %}" >
+                                        {% csrf_token %}
+                                        <input type="hidden" name="chkpname" value="{{subst.substitute.pname}}">
+                                        <input type="hidden" name="chkcode" value="{{subst.substitute.code}}">                            
+                                        <input type="image" class="img-thumbnail" src="{{ subst.substitute.photo_url }}" 
+                                        alt="image {{subst.substitute.pname}}" /><br />                                                       
+                                        {{ subst.substitute}}
+                                        
+                                    </form>
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+        {% else %}
+            <div class="col-md-4 col-12 ligne justify-content-center text-center">
+                <h5>Aucun Bookmark !!!</h5>
+            </div>
+        {% endif %}
+        {% include 'layouts/partials/_back.html' %}
+    </div>
+</div>
+{% endblock %}
