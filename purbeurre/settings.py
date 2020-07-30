@@ -29,6 +29,8 @@ def get_env_variable(var_name, default_value=None):
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 TEMPLATES_DIR = os.path.join(BASE_DIR, 'templates')
 STATIC_DIR = os.path.join(BASE_DIR, 'static')
+STATIC_DIR2 = BASE_DIR + '/static'
+print(STATIC_DIR2)
 # ASSETS_DIR = os.path.join(BASE_DIR, 'assets')
 MEDIA_DIR = os.path.join(BASE_DIR, 'media')
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
@@ -43,9 +45,10 @@ SECRET_KEY = get_env_variable('SECRET_KEY', '3r6ogr^(f+hh=a=kt2l(jdbivga_6iz&4yo
 
 # SECURITY WARNING: don't run with debug turned on in production!
 
-DEBUG = True
+DEBUG = False
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1']
 
 
 # Application definition
@@ -170,6 +173,7 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     STATIC_DIR,
+#    STATIC_DIR2,
 ]
 # MEDIA
 MEDIA_ROOT = MEDIA_DIR
@@ -183,4 +187,6 @@ INTERNAL_IPS = [
     # ...
 ]
 
-CELERY_BROKER_URL = 'redis://localhost:6379'
+MIDDLEWARE += ['whitenoise.middleware.WhiteNoiseMiddleware']
+# STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+# STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.ManifestStaticFilesStorage'
