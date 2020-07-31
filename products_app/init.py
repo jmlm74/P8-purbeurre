@@ -4,7 +4,7 @@ url = 'https://fr-en.openfoodfacts.org/cgi/search.pl'
 params_off = {'search_simple': 1,
               'action': 'process',
               'json': 1,
-              'page_size': 500,
+              'page_size': 300,
               'page': 1,
               'tagtype_0': 'categories',
               'tag_contains_0': 'contains',
@@ -16,13 +16,10 @@ params_off = {'search_simple': 1,
               }
 
 # categories to fetch 
-categories = ['snacks',
-              'produits-a-tartiner',
-              'biscuits',
+categories = ['biscuits',
               'Crepes',
-              'boissons',
               'desserts',
-              'sweetened-beverages']
+              'sweetened-beverages',
 # brands to fecth to have well known products
 brands = {'coca cola',
           'ferrero',
