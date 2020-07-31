@@ -32,7 +32,6 @@ STATIC_DIR = os.path.join(BASE_DIR, 'static')
 STATIC_DIR2 = BASE_DIR + '/static'
 # ASSETS_DIR = os.path.join(BASE_DIR, 'assets')
 MEDIA_DIR = os.path.join(BASE_DIR, 'media')
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 
 # Quick-start development settings - unsuitable for production
@@ -45,9 +44,8 @@ SECRET_KEY = get_env_variable('SECRET_KEY', '3r6ogr^(f+hh=a=kt2l(jdbivga_6iz&4yo
 # SECURITY WARNING: don't run with debug turned on in production!
 
 DEBUG = False
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
-ALLOWED_HOSTS = ['127.0.0.1']
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -60,11 +58,11 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'django_extensions',
-    'debug_toolbar',
     'home_app.apps.HomeAppConfig',
     'user_app.apps.UserAppConfig',
     'products_app.apps.ProductsAppConfig',
 ]
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -102,15 +100,6 @@ WSGI_APPLICATION = 'purbeurre.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
-
-"""
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
-}
-"""
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
@@ -172,7 +161,7 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     STATIC_DIR,
-#    STATIC_DIR2,
+    #    STATIC_DIR2,
 ]
 # MEDIA
 MEDIA_ROOT = MEDIA_DIR
@@ -180,13 +169,17 @@ MEDIA_URL = '/media/'
 # Login
 # LOGIN_URL = '/basicapp/login'
 
-INTERNAL_IPS = [
-    # ...
-    '127.0.0.1',
-    # ...
-]
 
-MIDDLEWARE += ['whitenoise.middleware.WhiteNoiseMiddleware']
-# STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-# STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.ManifestStaticFilesStorage'
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
+if DEBUG:
+    INSTALLED_APPS += ['debug_toolbar']
+    INTERNAL_IPS = [
+        # ...
+        '127.0.0.1',
+        # ...
+    ]
+else:
+    STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+    MIDDLEWARE += ['whitenoise.middleware.WhiteNoiseMiddleware']
+    # STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+    # STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.ManifestStaticFilesStorage'
+    STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'

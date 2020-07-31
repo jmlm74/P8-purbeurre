@@ -26,11 +26,6 @@ urlpatterns = [
     path('user_app/', include('user_app.urls')),
     path('products_app/', include('products_app.urls')),
     path('', hav.index, name='index'),
-    # just to test all the handlers pages --> should be deleted in production
-    path('400/', err.handler400, name='400'),
-    path('403/', err.handler403, name='403'),
-    path('404/', err.handler404, name='404'),
-    path('500/', err.handler500, name='500'),
     path('autocomplete_search/', hav.autocomplete_search, name='autocomplete_search'),
 ]
 
