@@ -19,7 +19,7 @@ params_off = {'search_simple': 1,
 categories = ['biscuits',
               'Crepes',
               'desserts',
-              'sweetened-beverages',
+              'sweetened-beverages', ]
 # brands to fecth to have well known products
 brands = {'coca cola',
           'ferrero',
