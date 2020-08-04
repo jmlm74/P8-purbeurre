@@ -79,20 +79,5 @@
       return false;
     }
   });
-/*
-  $("#search_menu").autocomplete({
-    source: "/autocomplete_search",
-    minLength: 4,
-    delay: 400,
-    autoFocus: true,
-  });
-*/
-  $("#items_to_search").autocomplete({
-    source: "/autocomplete_search",
-    minLength: 4,
-    delay: 400,
-    autoFocus: true
-  });
-
 
 })(jQuery); // End of use strict
